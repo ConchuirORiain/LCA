@@ -31,15 +31,18 @@ struct treeNode *newNode(int data){
 
 struct treeNode *lca(struct treeNode* root, int n1, int n2) 
 { 
-    if (root == NULL) return NULL; 
+	if (root == NULL) return NULL; 
   
-    if (root->data > n1 && root->data > n2) 
-        return lca(root->left, n1, n2); 
+	if (root->data == n1 || root->data == n2) 
+        return root;
   
-    if (root->data < n1 && root->data < n2) 
-        return lca(root->right, n1, n2); 
-  
-    return root; 
+	struct treeNode *leftLCA = lca(root->left,n1,n2);
+	struct treeNode *rightLCA = lca(root->right,n1,n2);
+	
+	if(leftLCA != NULL && rightLCA != NULL) return root;
+	return (leftLCA != NULL)? leftLCA : rightLCA;
+
+	return root; 
 }
  
 int main(){
