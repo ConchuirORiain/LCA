@@ -13,7 +13,7 @@ void tearDown(void){
 }
 
 void testLCAFunction(void){
-	TEST_ASSERT_EQUAL(1,lca(graph->head,2,3));
+	TEST_ASSERT_EQUAL(1,lca(graph->head,2,3)->data);
 }
 
 int main(void){
