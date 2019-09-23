@@ -2,18 +2,32 @@
 #include "LCA.h"
 
 struct tree *graph;
+struct tree *nullGraph;
+struct tree *rightLeanGraph;
 void setUp(void){
 	graph = newEmptyTree();
+	nullGraph = newEmptyTree();
+	rightLeanGraph = newEmptyTree();
+
 	graph->head = newNode(1);
 	graph->head->left = newNode(2);
 	graph->head->right = newNode(3);
+
+	rightLeanGraph->head = newNode(1);
+	rightLeanGraph->head->right = newNode(2);
+	rightLeanGraph->head->right->right = newNode(3);
+	rightLeanGraph->head->right->right->right = newNode(4);
+	rightLeanGraph->head->right->right->right->right = newNode(5);
+	rightLeanGraph->head->right->right->right->right->right = newNode(6);
 }
 
 void tearDown(void){
 }
 
 void testLCAFunction(void){
-	TEST_ASSERT_EQUAL(1,lca(graph->head,2,3)->data);
+	TEST_ASSERT_EQUAL_MESSAGE(1,lca(graph->head,2,3)->data,"Basic graph, answer should be 1");
+	TEST_ASSERT_NULL_MESSAGE(lca(nullGraph->head,2,3),"tree with no nodes, answer should be null");
+	TEST_ASSERT_EQUAL_MESSAGE(5,lca(rightLeanGraph->head,5,6)->data,"long right leaning graph, answer should be 5");
 }
 
 int main(void){
