@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <string.h>
+#include "LCA.h"
 
 struct treeNode {
 	int data;
