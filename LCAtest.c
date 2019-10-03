@@ -6,6 +6,7 @@ struct tree *nullGraph;
 struct tree *rightLeanGraph;
 struct tree *leftLeanGraph;
 struct tree *complexGraph;
+struct tree *otherGraph;
 
 void setUp(void){
 	graph = newEmptyTree();
@@ -13,6 +14,7 @@ void setUp(void){
 	rightLeanGraph = newEmptyTree();
 	leftLeanGraph = newEmptyTree();
 	complexGraph = newEmptyTree();
+    otherGraph = newEmptyTree();
 
 	graph->head = newNode(1);
 	graph->head->left = newNode(2);
