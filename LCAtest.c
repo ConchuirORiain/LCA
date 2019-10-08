@@ -1,22 +1,22 @@
 #include "unity.h"
 #include "LCA.h"
 
-struct tree *nullGraph;
-struct tree *graph;
-struct tree *nullGraph;
-struct tree *rightLeanGraph;
-struct tree *leftLeanGraph;
-struct tree *complexGraph;
-struct tree *simpleDAG;
+struct graph *nullGraph;
+struct graph *graph;
+struct graph *nullGraph;
+struct graph *rightLeanGraph;
+struct graph *leftLeanGraph;
+struct graph *complexGraph;
+struct graph *simpleDAG;
 
 void setUp(void){
-	nullGraph = newEmptyTree();
-	graph = newEmptyTree();
-	nullGraph = newEmptyTree();
-	rightLeanGraph = newEmptyTree();
-	leftLeanGraph = newEmptyTree();
-	complexGraph = newEmptyTree();
-	simpleDAG = newEmptyTree();
+	nullGraph = newEmptyGraph();
+	graph = newEmptyGraph();
+	nullGraph = newEmptyGraph();
+	rightLeanGraph = newEmptyGraph();
+	leftLeanGraph = newEmptyGraph();
+	complexGraph = newEmptyGraph();
+	simpleDAG = newEmptyGraph();
 
 	graph->head = newNode(1);
 	graph->head->left = newNode(2);
@@ -67,7 +67,7 @@ void tearDown(void){
 
 void testLCAFunction(void){
 	TEST_ASSERT_EQUAL_PTR_MESSAGE(graph->head,lca(graph->head,2,3),"Basic graph, answer should be 1");
-	TEST_ASSERT_NULL_MESSAGE(lca(nullGraph->head,2,3),"tree with no nodes, answer should be null");
+	TEST_ASSERT_NULL_MESSAGE(lca(nullGraph->head,2,3),"graph with no nodes, answer should be null");
 	TEST_ASSERT_EQUAL_PTR_MESSAGE(rightLeanGraph->head->right->right->right->right,
 		lca(rightLeanGraph->head,5,6),"long right leaning graph, answer should be 5");
 	TEST_ASSERT_EQUAL_PTR_MESSAGE(leftLeanGraph->head->left->left->left->left,

@@ -1,13 +1,13 @@
-struct treeNode {
+struct graphNode {
 	int data;
-	struct treeNode * left;
-	struct treeNode * right;
+	struct graphNode * left;
+	struct graphNode * right;
 };
 
-struct tree{
-	struct treeNode * head;
+struct graph{
+	struct graphNode * head;
 };
 
-struct tree *newEmptyTree();
-struct treeNode *newNode(int data);
-struct treeNode *lca(struct treeNode* root, int n1, int n2); 
+struct graph *newEmptyGraph();
+struct graphNode *newNode(int data);
+struct graphNode *lca(struct graphNode* root, int n1, int n2); 
