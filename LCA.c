@@ -39,3 +39,4 @@ struct graphNode *lca(struct graphNode* root, int n1, int n2)
 
 	return root; 
 }
+
