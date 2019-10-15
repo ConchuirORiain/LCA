@@ -38,6 +38,16 @@ void addEdge(struct graph *graph, int v, int w){
     graph->bag[v].head = added;
 };
 
+int contains(struct adjListNode *node, int dest){
+       while(node){
+            if(node->aN == dest)
+               return 1;
+            else
+                node = node-> next;
+       }
+       return 0;
+}
+
 int main(){
     return 0;
 }
