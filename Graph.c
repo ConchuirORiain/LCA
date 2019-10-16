@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "queue.h"
 
 struct graph{
     int v;
@@ -47,3 +48,29 @@ int contains(struct adjListNode *node, int dest){
        return 0;
 }
 
+int *BFS(struct graph* graph, int s){
+   int *visited = malloc(2*graph->v*(sizeof(int)));
+   for(int i =0; i < graph->v; i++)
+       visited[i] = 0;
+    for(int i = graph->v; i < 2*graph->v; i++)
+        visited[i] = - 1;
+    visited[s] = 1;
+    visited[s+graph->v] = 0;
+    struct queue *q = newEmptyQueue();
+    int check = enqueue(q,s);
+    if(check != 1) exit(check);
+    int distCount = 1;
+    while(isEmpty(q) != 1){
+        s = dequeue(q)->data;
+        for(int i = 0; i < graph->v; i++){
+            if(contains(graph->bag[s].head, i) == 1 && visited[i] == 0){
+                visited[i] = 1;
+                visited[i + graph -> v] = distCount;
+                check = enqueue(q,i);
+                if(check != 1) exit(check);
+            }
+        }
+        distCount++;
+    }
+    return visited;
+}

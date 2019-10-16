@@ -1,6 +1,7 @@
 #include "unity.h"
 #include "LCA.h"
 #include "Graph.h"
+#include "queue.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -26,8 +27,8 @@ void setUp(void){
 	complexTree = newEmptyTree();
     simpleGraph = newGraph(3);
     oneWayGraph = newGraph(8);
-    twoSetsGraph = newGraph(11);
-    threeSetsGraph = newGraph(12);
+    twoSetsGraph = newGraph(13);
+    threeSetsGraph = newGraph(10);
     treeGraph = newGraph(15);
 
 	tree->head = newNode(1);
@@ -200,10 +201,27 @@ void testContains(void){
     TEST_ASSERT_EQUAL_MESSAGE(1,contains(treeGraph->bag[14].head,6),"true,return 1");
 }
 
+void testBFS(void){
+    int simpleArray[6] = {1,1,0,1,0,-1};
+    TEST_ASSERT_EQUAL_INT_ARRAY(simpleArray,BFS(simpleGraph,1),6);
+    int oneWayArray[16] = {1,1,1,1,1,1,1,1,7,6,5,4,3,2,1,0};
+    TEST_ASSERT_EQUAL_INT_ARRAY(oneWayArray,BFS(oneWayGraph,7),16);
+    int twoSetsArray12[26] =  {1,1,1,1,1,1,1,1,1,1,1,1,1,7,6,6,5,5,4,4,3,2,2,1,1,0};
+    int twoSetsArray7[26] =  {1,1,1,1,1,1,1,0,-1,-1,-1,-1,-1,4,3,3,2,2,1,1,0,-1,-1,-1,-1,-1};
+    for(int i=0; i <13; i++)
+        printf("a12\tvert:%d\ttruth%d\tdistTo%d\n",i,twoSetsArray12[i],twoSetsArray12[i+13]);
+    for(int i=0; i <13; i++)
+        printf("a12\tvert:%d\ttruth%d\tdistTo%d\n",i,BFS(oneWayGraph,12)[i],BFS(oneWayGraph,12)[i+13]);
+    TEST_ASSERT_EQUAL_INT_ARRAY(twoSetsArray12,BFS(oneWayGraph,12),26);
+    TEST_ASSERT_EQUAL_INT_ARRAY(twoSetsArray12,BFS(oneWayGraph,12),26);
+    TEST_ASSERT_EQUAL_INT_ARRAY(twoSetsArray7,BFS(oneWayGraph,7),26);
+}
+
 int main(void){
 	UNITY_BEGIN();
 	RUN_TEST(testLCAFunction);
     RUN_TEST(testNull);
     RUN_TEST(testContains);
+    RUN_TEST(testBFS);
 	return UNITY_END();
 }

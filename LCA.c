@@ -67,24 +67,3 @@ int lcaDAG(struct graph *graph, int x, int y){
 	}
 	return -1;
 }
-
-int main(void){
-    struct graph *graph = newGraph(15);
-
-    addEdge(graph,0,1);
-    addEdge(graph,0,2);
-    addEdge(graph,1,3);
-    addEdge(graph,1,4);
-    addEdge(graph,2,5);
-    addEdge(graph,2,6);
-    addEdge(graph,3,7);
-    addEdge(graph,3,8);
-    addEdge(graph,4,9);
-    addEdge(graph,4,10);
-    addEdge(graph,5,11);
-    addEdge(graph,5,12);
-    addEdge(graph,6,13);
-    addEdge(graph,6,14);
-
-    printf("9,14: %d\nshould be 0\n",lcaDAG(graph,9,14));
-}
