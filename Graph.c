@@ -42,12 +42,8 @@ int contains(struct adjListNode *node, int dest){
        while(node){
             if(node->aN == dest)
                return 1;
-            else
-                node = node-> next;
+            node = node-> next;
        }
        return 0;
 }
 
-int main(){
-    return 0;
-}

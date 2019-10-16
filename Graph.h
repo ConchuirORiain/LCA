@@ -15,4 +15,4 @@ struct adjListNode{
 struct adjListNode *newAdjListNode(int aN);
 struct graph *newGraph(int v);
 void addEdge(struct graph *graph, int v, int w);
-int contains(struct adjList *list, int dest);
+int contains(struct adjListNode *node, int dest);

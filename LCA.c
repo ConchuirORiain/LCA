@@ -41,4 +41,10 @@ struct treeNode *lca(struct treeNode* root, int n1, int n2)
 	return root; 
 }
 
-
+void clearTree(struct treeNode *root){
+    if(root == NULL)
+        return;
+    clearTree(root->left);
+    clearTree(root->right);
+    free(root);
+}
