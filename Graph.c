@@ -22,6 +22,9 @@ struct graph{
 int *bfs(struct graph* graph, int startVertex){
     struct queue* q = createQueue();
     
+    for (int i = 0; i < graph->numVertices; i++) 
+        graph->visited[i] = -1;
+    
     graph->visited[startVertex] = 0;
     enqueue(q, startVertex);
     int visitOrder = 1;

@@ -55,7 +55,10 @@ int DAGLCA(struct graph *graph, int x, int y){
     int *bfsArrayY = bfs(graph, y);
     int currentLCA = -1;
     int dist = 0;
+    for(int i = 0; i<graph->numVertices; i++)
+        printf("bA%d\tv:%d\td:%d\tbA%d\tv:%d\td:%d\n",x,i,bfsArrayX[i],y,i,bfsArrayY[i]);
     for(int i = 0; i<graph->numVertices; i++){
+        printf("XV:%d\tXD:%d\nYV:%d\tYD:%d\n\n",i,bfsArrayX[i],i,bfsArrayY[i]);
         if(bfsArrayX[i] != -1 && bfsArrayY[i] != -1){
             if(currentLCA == -1){
                 currentLCA = i;

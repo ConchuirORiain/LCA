@@ -152,12 +152,19 @@ void testbfs(void){
 }
 
 void testDAGLCA(void){
+    puts("simple,0,1");
     TEST_ASSERT_EQUAL(1,DAGLCA(simpleGraph,0,1));
+    puts("simple,0,0");
     TEST_ASSERT_EQUAL(0,DAGLCA(simpleGraph,0,0));
+    puts("oneWay,7,1");
     TEST_ASSERT_EQUAL(1,DAGLCA(oneWayGraph,7,1));
+    puts("twoSets,7,5");
     TEST_ASSERT_EQUAL(5,DAGLCA(twoSetsGraph,7,5));
-    //TEST_ASSERT_EQUAL(3,DAGLCA(twoSetsGraph,1,2));
-    //TEST_ASSERT_EQUAL(2,DAGLCA(threeSetsGraph,4,5));
+    puts("twoSets,1,2");
+    TEST_ASSERT_EQUAL(3,DAGLCA(twoSetsGraph,1,2));
+    puts("threeSets,4,5");
+    TEST_ASSERT_EQUAL(2,DAGLCA(threeSetsGraph,4,5));
+    puts("threeSets,6,7");
     TEST_ASSERT_EQUAL(5,DAGLCA(threeSetsGraph,6,7));
 }
 
