@@ -46,8 +46,8 @@ struct queueNode *dequeue(struct queue *queue){
         return node;
     }
     else{
-        struct queueNode *prevNode = queue->head;
         struct queueNode *currentNode = queue->head->next;
+        struct queueNode *prevNode = queue->head->next;
         while(currentNode->next != NULL){
             prevNode = currentNode;
             currentNode = currentNode->next;

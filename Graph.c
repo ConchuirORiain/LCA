@@ -57,20 +57,44 @@ int *BFS(struct graph* graph, int s){
     visited[s] = 1;
     visited[s+graph->v] = 0;
     struct queue *q = newEmptyQueue();
-    int check = enqueue(q,s);
-    if(check != 1) exit(check);
+    enqueue(q,s);
     int distCount = 1;
     while(isEmpty(q) != 1){
         s = dequeue(q)->data;
-        for(int i = 0; i < graph->v; i++){
-            if(contains(graph->bag[s].head, i) == 1 && visited[i] == 0){
-                visited[i] = 1;
-                visited[i + graph -> v] = distCount;
-                check = enqueue(q,i);
-                if(check != 1) exit(check);
+        struct adjListNode *temp = graph->bag[s].head;
+        while(temp){
+            int adjVertex = temp->aN;
+            if(visited[adjVertex] == 0){
+                visited[adjVertex] = 1;
+                visited[adjVertex + graph->v] =distCount;
+                enqueue(q,adjVertex);
             }
+            temp = temp->next;
         }
         distCount++;
     }
     return visited;
 }
+//
+//int main(void){
+//    struct graph *graph = newGraph(13);
+//    addEdge(graph,12,10);
+//    addEdge(graph,12,11);
+//    addEdge(graph,11,9);
+//    addEdge(graph,10,8);
+//    addEdge(graph,9,7);
+//    addEdge(graph,8,7);
+//    addEdge(graph,7,6);
+//    addEdge(graph,7,5);
+//    addEdge(graph,6,4);
+//    addEdge(graph,5,3);
+//    addEdge(graph,4,2);
+//    addEdge(graph,3,1);
+//    addEdge(graph,2,0);
+//    addEdge(graph,1,0);
+//    int *array = BFS(graph,12);
+//    for(int i = 0; i<13; i++)
+//        printf("v:%d\tT:%d\tD:%d\n",i,array[i],array[i+13]);
+//}
+//
+//

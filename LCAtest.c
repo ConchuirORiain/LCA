@@ -27,7 +27,7 @@ void setUp(void){
 	complexTree = newEmptyTree();
     simpleGraph = newGraph(3);
     oneWayGraph = newGraph(8);
-    twoSetsGraph = newGraph(13);
+    twoSetsGraph = newGraph(8);
     threeSetsGraph = newGraph(10);
     treeGraph = newGraph(15);
 
@@ -83,13 +83,6 @@ void setUp(void){
     addEdge(twoSetsGraph,6,4);
     addEdge(twoSetsGraph,7,5);
     addEdge(twoSetsGraph,7,6);
-    addEdge(twoSetsGraph,8,7);
-    addEdge(twoSetsGraph,9,7);
-    addEdge(twoSetsGraph,10,8);
-    addEdge(twoSetsGraph,11,9);
-    addEdge(twoSetsGraph,12,10);
-    addEdge(twoSetsGraph,12,11);
-
 
     addEdge(threeSetsGraph,1,0);
     addEdge(threeSetsGraph,2,0);
@@ -165,12 +158,6 @@ void testContains(void){
     TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[6].head,4),"true,return 1");
     TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[7].head,5),"true,return 1");
     TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[7].head,6),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[8].head,7),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[9].head,7),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[10].head,8),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[11].head,9),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[12].head,10),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[12].head,11),"true,return 1");
 
     TEST_ASSERT_EQUAL_MESSAGE(1,contains(threeSetsGraph->bag[1].head,0),"true,return 1");
     TEST_ASSERT_EQUAL_MESSAGE(1,contains(threeSetsGraph->bag[2].head,0),"true,return 1");
@@ -206,15 +193,9 @@ void testBFS(void){
     TEST_ASSERT_EQUAL_INT_ARRAY(simpleArray,BFS(simpleGraph,1),6);
     int oneWayArray[16] = {1,1,1,1,1,1,1,1,7,6,5,4,3,2,1,0};
     TEST_ASSERT_EQUAL_INT_ARRAY(oneWayArray,BFS(oneWayGraph,7),16);
-    int twoSetsArray12[26] =  {1,1,1,1,1,1,1,1,1,1,1,1,1,7,6,6,5,5,4,4,3,2,2,1,1,0};
-    int twoSetsArray7[26] =  {1,1,1,1,1,1,1,0,-1,-1,-1,-1,-1,4,3,3,2,2,1,1,0,-1,-1,-1,-1,-1};
-    for(int i=0; i <13; i++)
-        printf("a12\tvert:%d\ttruth%d\tdistTo%d\n",i,twoSetsArray12[i],twoSetsArray12[i+13]);
-    for(int i=0; i <13; i++)
-        printf("a12\tvert:%d\ttruth%d\tdistTo%d\n",i,BFS(oneWayGraph,12)[i],BFS(oneWayGraph,12)[i+13]);
-    TEST_ASSERT_EQUAL_INT_ARRAY(twoSetsArray12,BFS(oneWayGraph,12),26);
-    TEST_ASSERT_EQUAL_INT_ARRAY(twoSetsArray12,BFS(oneWayGraph,12),26);
-    TEST_ASSERT_EQUAL_INT_ARRAY(twoSetsArray7,BFS(oneWayGraph,7),26);
+    int twoSetsArray6[16] =  {1,0,1,0,1,0,1,0,3,-1,2,-1,1,-1,0,-1};
+    //TEST_ASSERT_EQUAL_INT_ARRAY(twoSetsArray12,BFS(twoSetsGraph,12),26);
+    TEST_ASSERT_EQUAL_INT_ARRAY(twoSetsArray6,BFS(twoSetsGraph,6),16);
 }
 
 int main(void){
