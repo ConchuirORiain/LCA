@@ -49,21 +49,3 @@ void clearTree(struct treeNode *root){
     free(root);
 }
 
-int lcaDAG(struct graph *graph, int x, int y){
-    for(int i = 0 ; i < graph->v;i++){
-		struct adjListNode *pCrawl = graph->bag[i].head;
-		if(contains(pCrawl,x)==1)
-			for(int j = 0 ; j < graph->v;j++){
-				pCrawl = graph->bag[j].head;
-				if(contains(pCrawl,y)==1)
-					return i;
-			}
-		if(contains(pCrawl,y)==1)
-			for(int j = 0 ; j < graph->v;j++){
-				pCrawl = graph->bag[j].head;
-				if(contains(pCrawl,x)==1)
-					return i;
-			}
-	}
-	return -1;
-}

@@ -1,17 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define SIZE 40
 
-struct queue{
-    struct queueNode *head;
-};
-
-struct queueNode{
-    int data;
-    struct queueNode *next;
-};
-
-struct queue *newEmptyQueue();
-struct queueNode *newQueueNode(int x);
-int enqueue(struct queue *queue, int x);
-struct queueNode *dequeue(struct queue *queue);
-int isEmpty(struct queue *queue);
+struct queue* createQueue();
+void enqueue(struct queue* q, int);
+int dequeue(struct queue* q);
+void display(struct queue* q);
+int isEmpty(struct queue* q);
+void printQueue(struct queue* q);

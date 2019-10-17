@@ -25,11 +25,11 @@ void setUp(void){
 	rightLeanTree = newEmptyTree();
 	leftLeanTree = newEmptyTree();
 	complexTree = newEmptyTree();
-    simpleGraph = newGraph(3);
-    oneWayGraph = newGraph(8);
-    twoSetsGraph = newGraph(8);
-    threeSetsGraph = newGraph(10);
-    treeGraph = newGraph(15);
+    simpleGraph = createGraph(3);
+    oneWayGraph = createGraph(8);
+    twoSetsGraph = createGraph(8);
+    threeSetsGraph = createGraph(10);
+    treeGraph = createGraph(15);
 
 	tree->head = newNode(1);
 	tree->head->left = newNode(2);
@@ -92,7 +92,7 @@ void setUp(void){
     addEdge(threeSetsGraph,4,1);
     addEdge(threeSetsGraph,4,3);
     addEdge(threeSetsGraph,5,2);
-    addEdge(threeSetsGraph,6,5);
+    addEdge(threeSetsGraph,6,4);
     addEdge(threeSetsGraph,7,5);
     addEdge(threeSetsGraph,8,6);
     addEdge(threeSetsGraph,8,7);
@@ -139,73 +139,24 @@ void testNull(void){
     TEST_ASSERT_NULL_MESSAGE(nullGraph,"should be null");
 }
 
-void testContains(void){
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(simpleGraph->bag[1].head,0),"true, return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(simpleGraph->bag[2].head,0),"true,return 1");
 
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(oneWayGraph->bag[1].head,0),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(oneWayGraph->bag[2].head,1),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(oneWayGraph->bag[3].head,2),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(oneWayGraph->bag[4].head,3),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(oneWayGraph->bag[5].head,4),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(oneWayGraph->bag[6].head,5),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(oneWayGraph->bag[7].head,6),"true,return 1");
+void testbfs(void){
+    TEST_ASSERT_EQUAL_MESSAGE(-1,bfs(simpleGraph,1)[2],"doesn't visit 2 so answer should be -1");
+    TEST_ASSERT_LESS_THAN_MESSAGE(bfs(simpleGraph,1)[0],bfs(simpleGraph,1)[1],"visits 1 first so should be of lower order than 0");
+    TEST_ASSERT_LESS_THAN(bfs(simpleGraph,2)[0],bfs(simpleGraph,2)[2]);
+    TEST_ASSERT_LESS_THAN(bfs(oneWayGraph,1)[0],bfs(simpleGraph,1)[1]);
+    TEST_ASSERT_LESS_THAN(bfs(twoSetsGraph,3)[1],bfs(twoSetsGraph,3)[3]);
+    TEST_ASSERT_LESS_THAN(bfs(threeSetsGraph,7)[0],bfs(threeSetsGraph,7)[2]);
+    TEST_ASSERT_LESS_THAN(bfs(threeSetsGraph,9)[1],bfs(threeSetsGraph,9)[8]);
+    TEST_ASSERT_LESS_THAN(bfs(treeGraph,14)[0],bfs(treeGraph,14)[2]);
 
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[1].head,0),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[2].head,0),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[3].head,1),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[3].head,2),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[4].head,3),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[5].head,3),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[6].head,4),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[6].head,5),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[7].head,6),"true,return 1");
 
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(threeSetsGraph->bag[1].head,0),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(threeSetsGraph->bag[2].head,0),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(threeSetsGraph->bag[3].head,1),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(threeSetsGraph->bag[3].head,2),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(threeSetsGraph->bag[4].head,1),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(threeSetsGraph->bag[4].head,3),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(threeSetsGraph->bag[5].head,2),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(threeSetsGraph->bag[6].head,5),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(threeSetsGraph->bag[7].head,5),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(threeSetsGraph->bag[8].head,6),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(threeSetsGraph->bag[8].head,7),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(threeSetsGraph->bag[9].head,8),"true,return 1");
-
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(treeGraph->bag[1].head,0),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(treeGraph->bag[2].head,0),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(treeGraph->bag[3].head,1),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(treeGraph->bag[4].head,1),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(treeGraph->bag[5].head,2),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(treeGraph->bag[6].head,2),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(treeGraph->bag[7].head,3),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(treeGraph->bag[8].head,3),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(treeGraph->bag[9].head,4),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(treeGraph->bag[10].head,4),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(treeGraph->bag[11].head,5),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(treeGraph->bag[12].head,5),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(treeGraph->bag[13].head,6),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(treeGraph->bag[14].head,6),"true,return 1");
-}
-
-void testBFS(void){
-    int simpleArray[6] = {1,1,0,1,0,-1};
-    TEST_ASSERT_EQUAL_INT_ARRAY(simpleArray,BFS(simpleGraph,1),6);
-    int oneWayArray[16] = {1,1,1,1,1,1,1,1,7,6,5,4,3,2,1,0};
-    TEST_ASSERT_EQUAL_INT_ARRAY(oneWayArray,BFS(oneWayGraph,7),16);
-    int twoSetsArray2[16] =  {1,0,1,0,0,0,0,0,1,-1,0,-1,-1,-1,-1,-1};
-    TEST_ASSERT_EQUAL_INT_ARRAY(twoSetsArray2,BFS(twoSetsGraph,2),16);
-    int twoSetsArray3[16] =  {1,1,1,1,0,0,0,0,2,1,1,0,-1,-1,-1,-1};
-    TEST_ASSERT_EQUAL_INT_ARRAY(twoSetsArray3,BFS(twoSetsGraph,3),16);
 }
 
 int main(void){
 	UNITY_BEGIN();
 	RUN_TEST(testLCAFunction);
     RUN_TEST(testNull);
-    RUN_TEST(testContains);
-    RUN_TEST(testBFS);
+    RUN_TEST(testbfs);
 	return UNITY_END();
 }

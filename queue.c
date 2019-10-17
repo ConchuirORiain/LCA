@@ -1,64 +1,56 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include "queue.h"
+#define SIZE 40
 struct queue{
-    struct queueNode *head;
+    int items[SIZE];
+    int front;
+    int rear;
 };
-
-struct queueNode{
-    int data;
-    struct queueNode *next;
-};
-
-struct queue *newEmptyQueue(){
-    struct queue *result = malloc(sizeof(struct queue));
-    result -> head = NULL;
-    return result;
+struct queue* createQueue() {
+    struct queue* q = malloc(sizeof(struct queue));
+    q->front = -1;
+    q->rear = -1;
+    return q;
 }
-
-struct queueNode *newQueueNode(int x){
-    struct queueNode *result = malloc(sizeof(struct queueNode));
-    result->next = NULL;
-    result->data = x;
-    return result;
-}
-
-int enqueue(struct queue *queue, int x){
-    struct queueNode *node = newQueueNode(x);
-    if(queue->head == NULL){
-        queue->head = node;
+int isEmpty(struct queue* q) {
+    if(q->rear == -1) 
         return 1;
+    else 
+        return 0;
+}
+void enqueue(struct queue* q, int value){
+    if(q->rear == SIZE-1)
+        exit(0);
+    else {
+        if(q->front == -1)
+            q->front = 0;
+        q->rear++;
+        q->items[q->rear] = value;
+    }
+}
+int dequeue(struct queue* q){
+    int item;
+    if(isEmpty(q)){
+        item = -1;
     }
     else{
-        node->next = queue->head;
-        queue->head = node;
-        return 1;
-    }
-    return 0;
-}
-
-struct queueNode *dequeue(struct queue *queue){
-    if(queue->head == NULL)
-        return NULL;
-    else if(queue->head->next == NULL){
-        struct queueNode *node = queue->head;
-        queue->head = NULL;
-        return node;
-    }
-    else{
-        struct queueNode *currentNode = queue->head->next;
-        struct queueNode *prevNode = queue->head->next;
-        while(currentNode->next != NULL){
-            prevNode = currentNode;
-            currentNode = currentNode->next;
+        item = q->items[q->front];
+        q->front++;
+        if(q->front > q->rear){
+            q->front = q->rear = -1;
         }
-        prevNode->next = NULL;
-        return currentNode;
     }
-} 
-
-int isEmpty(struct queue *queue){
-    if(queue->head == NULL)
-        return 1;
-    return 0;
+    return item;
+}
+void printQueue(struct queue *q) {
+    int i = q->front;
+    if(isEmpty(q)) {
+        printf("Queue is empty");
+    } else {
+        printf("\nQueue contains \n");
+        for(i = q->front; i < q->rear + 1; i++) {
+                printf("%d ", q->items[i]);
+        }
+    }    
 }
