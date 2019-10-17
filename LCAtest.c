@@ -75,15 +75,15 @@ void setUp(void){
     addEdge(oneWayGraph,6,5);
     addEdge(oneWayGraph,7,6);
     
-    addEdge(twoSetsGraph,7,6);
-    addEdge(twoSetsGraph,6,5);
-    addEdge(twoSetsGraph,6,4);
-    addEdge(twoSetsGraph,5,3);
-    addEdge(twoSetsGraph,4,3);
-    addEdge(twoSetsGraph,3,2);
-    addEdge(twoSetsGraph,3,1);
-    addEdge(twoSetsGraph,2,0);
     addEdge(twoSetsGraph,1,0);
+    addEdge(twoSetsGraph,2,0);
+    addEdge(twoSetsGraph,3,1);
+    addEdge(twoSetsGraph,3,2);
+    addEdge(twoSetsGraph,4,3);
+    addEdge(twoSetsGraph,5,3);
+    addEdge(twoSetsGraph,6,4);
+    addEdge(twoSetsGraph,6,5);
+    addEdge(twoSetsGraph,7,6);
 
     addEdge(threeSetsGraph,1,0);
     addEdge(threeSetsGraph,2,0);
@@ -149,8 +149,16 @@ void testbfs(void){
     TEST_ASSERT_LESS_THAN(bfs(threeSetsGraph,7)[0],bfs(threeSetsGraph,7)[2]);
     TEST_ASSERT_LESS_THAN(bfs(threeSetsGraph,9)[1],bfs(threeSetsGraph,9)[8]);
     TEST_ASSERT_LESS_THAN(bfs(treeGraph,14)[0],bfs(treeGraph,14)[2]);
+}
 
-
+void testDAGLCA(void){
+    TEST_ASSERT_EQUAL(1,DAGLCA(simpleGraph,0,1));
+    TEST_ASSERT_EQUAL(0,DAGLCA(simpleGraph,0,0));
+    TEST_ASSERT_EQUAL(1,DAGLCA(oneWayGraph,7,1));
+    TEST_ASSERT_EQUAL(5,DAGLCA(twoSetsGraph,7,5));
+    //TEST_ASSERT_EQUAL(3,DAGLCA(twoSetsGraph,1,2));
+    //TEST_ASSERT_EQUAL(2,DAGLCA(threeSetsGraph,4,5));
+    TEST_ASSERT_EQUAL(5,DAGLCA(threeSetsGraph,6,7));
 }
 
 int main(void){
@@ -158,5 +166,6 @@ int main(void){
 	RUN_TEST(testLCAFunction);
     RUN_TEST(testNull);
     RUN_TEST(testbfs);
+    RUN_TEST(testDAGLCA);
 	return UNITY_END();
 }

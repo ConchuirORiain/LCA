@@ -26,20 +26,18 @@ int *bfs(struct graph* graph, int startVertex){
     enqueue(q, startVertex);
     int visitOrder = 1;
     while(!isEmpty(q)){
-        printQueue(q);
         int currentVertex = dequeue(q);
    
        struct node* temp = graph->adjLists[currentVertex];
     
        while(temp) {
             int adjVertex = temp->vertex;
-            printf("aV:%d\n",adjVertex);
             if(graph->visited[adjVertex] <= visitOrder){
                 graph->visited[adjVertex] = visitOrder;
                 enqueue(q, adjVertex);
-                visitOrder++;
             }
             temp = temp->next;
+            visitOrder++;
        }
     }
     return(graph->visited);

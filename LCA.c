@@ -4,6 +4,7 @@
 #include <string.h>
 #include "LCA.h"
 #include "Graph.h"
+#include "queue.h"
 
 struct treeNode; 
 
@@ -48,4 +49,25 @@ void clearTree(struct treeNode *root){
     clearTree(root->right);
     free(root);
 }
+
+int DAGLCA(struct graph *graph, int x, int y){
+    int *bfsArrayX = bfs(graph, x);
+    int *bfsArrayY = bfs(graph, y);
+    int currentLCA = -1;
+    int dist = 0;
+    for(int i = 0; i<graph->numVertices; i++){
+        if(bfsArrayX[i] != -1 && bfsArrayY[i] != -1){
+            if(currentLCA == -1){
+                currentLCA = i;
+                dist = bfsArrayX[i] + bfsArrayY[i];
+            }
+            else if(dist > (bfsArrayX[i] + bfsArrayY[i])){
+                dist = bfsArrayX[i] + bfsArrayY[i];
+                currentLCA = i;
+            }
+        }
+    }
+    return currentLCA;
+}
+
 

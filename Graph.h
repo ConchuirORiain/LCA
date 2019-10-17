@@ -1,3 +1,5 @@
+#ifndef _GRAPHH_
+#define _GRAPHH_
 #include <stdio.h>
 #include <stdlib.h>
 #include "queue.h"
@@ -19,4 +21,4 @@ struct graph{
     int* visited;
 };
 
-
+#endif
