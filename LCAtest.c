@@ -75,14 +75,15 @@ void setUp(void){
     addEdge(oneWayGraph,6,5);
     addEdge(oneWayGraph,7,6);
     
-    addEdge(twoSetsGraph,1,0);
-    addEdge(twoSetsGraph,2,0);
-    addEdge(twoSetsGraph,3,1);
-    addEdge(twoSetsGraph,4,2);
-    addEdge(twoSetsGraph,5,3);
-    addEdge(twoSetsGraph,6,4);
-    addEdge(twoSetsGraph,7,5);
     addEdge(twoSetsGraph,7,6);
+    addEdge(twoSetsGraph,6,5);
+    addEdge(twoSetsGraph,6,4);
+    addEdge(twoSetsGraph,5,3);
+    addEdge(twoSetsGraph,4,3);
+    addEdge(twoSetsGraph,3,2);
+    addEdge(twoSetsGraph,3,1);
+    addEdge(twoSetsGraph,2,0);
+    addEdge(twoSetsGraph,1,0);
 
     addEdge(threeSetsGraph,1,0);
     addEdge(threeSetsGraph,2,0);
@@ -153,10 +154,11 @@ void testContains(void){
     TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[1].head,0),"true,return 1");
     TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[2].head,0),"true,return 1");
     TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[3].head,1),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[4].head,2),"true,return 1");
+    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[3].head,2),"true,return 1");
+    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[4].head,3),"true,return 1");
     TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[5].head,3),"true,return 1");
     TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[6].head,4),"true,return 1");
-    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[7].head,5),"true,return 1");
+    TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[6].head,5),"true,return 1");
     TEST_ASSERT_EQUAL_MESSAGE(1,contains(twoSetsGraph->bag[7].head,6),"true,return 1");
 
     TEST_ASSERT_EQUAL_MESSAGE(1,contains(threeSetsGraph->bag[1].head,0),"true,return 1");
@@ -193,9 +195,10 @@ void testBFS(void){
     TEST_ASSERT_EQUAL_INT_ARRAY(simpleArray,BFS(simpleGraph,1),6);
     int oneWayArray[16] = {1,1,1,1,1,1,1,1,7,6,5,4,3,2,1,0};
     TEST_ASSERT_EQUAL_INT_ARRAY(oneWayArray,BFS(oneWayGraph,7),16);
-    int twoSetsArray6[16] =  {1,0,1,0,1,0,1,0,3,-1,2,-1,1,-1,0,-1};
-    //TEST_ASSERT_EQUAL_INT_ARRAY(twoSetsArray12,BFS(twoSetsGraph,12),26);
-    TEST_ASSERT_EQUAL_INT_ARRAY(twoSetsArray6,BFS(twoSetsGraph,6),16);
+    int twoSetsArray2[16] =  {1,0,1,0,0,0,0,0,1,-1,0,-1,-1,-1,-1,-1};
+    TEST_ASSERT_EQUAL_INT_ARRAY(twoSetsArray2,BFS(twoSetsGraph,2),16);
+    int twoSetsArray3[16] =  {1,1,1,1,0,0,0,0,2,1,1,0,-1,-1,-1,-1};
+    TEST_ASSERT_EQUAL_INT_ARRAY(twoSetsArray3,BFS(twoSetsGraph,3),16);
 }
 
 int main(void){
