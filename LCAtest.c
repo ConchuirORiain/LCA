@@ -17,6 +17,7 @@ struct graph *oneWayGraph;
 struct graph *twoSetsGraph;
 struct graph *threeSetsGraph;
 struct graph *treeGraph;
+struct graph *denseGraph;
 
 void setUp(void){
 	nullTree = newEmptyTree();
@@ -30,6 +31,7 @@ void setUp(void){
     twoSetsGraph = createGraph(8);
     threeSetsGraph = createGraph(10);
     treeGraph = createGraph(15);
+    denseGraph = createGraph(8);
 
 	tree->head = newNode(1);
 	tree->head->left = newNode(2);
@@ -113,6 +115,15 @@ void setUp(void){
     addEdge(treeGraph,13,6);
     addEdge(treeGraph,14,6);
 
+    addEdge(denseGraph,0,3);
+    addEdge(denseGraph,1,3);
+    addEdge(denseGraph,2,3);
+    addEdge(denseGraph,3,4);
+    addEdge(denseGraph,3,5);
+    addEdge(denseGraph,3,6);
+    addEdge(denseGraph,4,7);
+    addEdge(denseGraph,5,7);
+    addEdge(denseGraph,6,7);
 }
 
 void tearDown(void){
@@ -152,20 +163,24 @@ void testbfs(void){
 }
 
 void testDAGLCA(void){
-    puts("simple,0,1");
-    TEST_ASSERT_EQUAL(1,DAGLCA(simpleGraph,0,1));
-    puts("simple,0,0");
+    TEST_ASSERT_EQUAL(0,DAGLCA(simpleGraph,0,1));
     TEST_ASSERT_EQUAL(0,DAGLCA(simpleGraph,0,0));
-    puts("oneWay,7,1");
     TEST_ASSERT_EQUAL(1,DAGLCA(oneWayGraph,7,1));
-    puts("twoSets,7,5");
     TEST_ASSERT_EQUAL(5,DAGLCA(twoSetsGraph,7,5));
-    puts("twoSets,1,2");
-    TEST_ASSERT_EQUAL(3,DAGLCA(twoSetsGraph,1,2));
-    puts("threeSets,4,5");
+    TEST_ASSERT_EQUAL(0,DAGLCA(twoSetsGraph,1,2));
     TEST_ASSERT_EQUAL(2,DAGLCA(threeSetsGraph,4,5));
-    puts("threeSets,6,7");
-    TEST_ASSERT_EQUAL(5,DAGLCA(threeSetsGraph,6,7));
+    TEST_ASSERT_EQUAL(2,DAGLCA(threeSetsGraph,6,7));
+    TEST_ASSERT_EQUAL(0,DAGLCA(threeSetsGraph,1,2));
+    TEST_ASSERT_EQUAL(8,DAGLCA(threeSetsGraph,8,9));
+    TEST_ASSERT_EQUAL(0,DAGLCA(treeGraph,7,14));
+    TEST_ASSERT_EQUAL(1,DAGLCA(treeGraph,8,10));
+    TEST_ASSERT_EQUAL(3,DAGLCA(denseGraph,0,1));
+    TEST_ASSERT_EQUAL(3,DAGLCA(denseGraph,0,2));
+    TEST_ASSERT_EQUAL(3,DAGLCA(denseGraph,2,1));
+    TEST_ASSERT_EQUAL(3,DAGLCA(denseGraph,3,3));
+    TEST_ASSERT_EQUAL(7,DAGLCA(denseGraph,4,5));
+    TEST_ASSERT_EQUAL(7,DAGLCA(denseGraph,4,6));
+    TEST_ASSERT_EQUAL(7,DAGLCA(denseGraph,6,5));
 }
 
 int main(void){

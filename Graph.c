@@ -20,12 +20,14 @@ struct graph{
 };
 
 int *bfs(struct graph* graph, int startVertex){
+    int *array = malloc(graph->numVertices * (sizeof(int)));
+    
     struct queue* q = createQueue();
     
     for (int i = 0; i < graph->numVertices; i++) 
-        graph->visited[i] = -1;
+        array[i] = -1;
     
-    graph->visited[startVertex] = 0;
+    array[startVertex] = 0;
     enqueue(q, startVertex);
     int visitOrder = 1;
     while(!isEmpty(q)){
@@ -35,15 +37,16 @@ int *bfs(struct graph* graph, int startVertex){
     
        while(temp) {
             int adjVertex = temp->vertex;
-            if(graph->visited[adjVertex] <= visitOrder){
-                graph->visited[adjVertex] = visitOrder;
+            if(array[adjVertex] < visitOrder){
+                array[adjVertex] = visitOrder;
                 enqueue(q, adjVertex);
             }
             temp = temp->next;
             visitOrder++;
        }
     }
-    return(graph->visited);
+
+    return array;
 }
  
 struct node* createNode(int v){
